@@ -50,5 +50,14 @@ services:
       - redis
       - app
 
+  celery_beat:
+    build: .
+    tty: true
+    command: sh -c "sleep 10 && celery -A config beat -l info -S django"
+    depends_on:
+      - celery
+      - redis
+      - app
+
 volumes:
   pg_data:
